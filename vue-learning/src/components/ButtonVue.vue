@@ -11,6 +11,7 @@
         },
         methods: {
             testClick() {
+                this.$emit('toggle-add-task')
                 console.log(this.text);
             }
         }

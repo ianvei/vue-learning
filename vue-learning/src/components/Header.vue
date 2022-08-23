@@ -16,7 +16,7 @@ export default {
 <template>
     <header>
         <h1>{{title}}</h1>
-        <ButtonVue text="Add Task" color="Green" />
+        <ButtonVue @toggle-add-task="$emit('toggle-add-task')" text="Add Task" color="Green" />
     </header>
 </template>
 
