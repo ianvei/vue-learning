@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div :class="[task.reminder? 'reminder' : '', 'task']">
+    <div @dblclick="$emit('toggle-reminder', task.id)"  :class="[task.reminder? 'reminder' : '', 'task']">
         <h3>
             {{task.text}}
             <i @click="onDelete(task.id)" class="fa-solid fa-trash-can"></i>

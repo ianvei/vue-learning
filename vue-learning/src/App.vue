@@ -1,3 +1,10 @@
+<template>
+  <div class="container">
+    <HeaderVue title="Task Tracker"/>
+    <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks"/>
+  </div>
+</template>
+
 <script>
   import HeaderVue from './components/Header.vue';
   import Tasks from './components/Tasks.vue'
@@ -17,7 +24,11 @@
     methods:{
       deleteTask(id){
         console.log('task', id);
-        this.tasks = this.tasks.filter((task) => task.id !== id)
+        this.tasks = this.tasks.filter((task) => task.id !== id);
+      },
+      toggleReminder(id){
+        console.log('reminder',id)
+        this.tasks = this.tasks.map((task) => task.id === id? {...task, reminder: !task.reminder} : task)
       }
     },
     created(){
@@ -46,14 +57,6 @@
 
   }
 </script>
-
-<template>
-  <div class="container">
-    <HeaderVue title="Task Tracker"/>
-    <Tasks @delete-task="deleteTask" :tasks="tasks"/>
-  </div>
-  
-</template>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
