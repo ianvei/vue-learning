@@ -5,6 +5,7 @@ export default {
     name: 'HeaderComponent',
     props: {
         title: String,
+        showAddTask: Boolean,
     },
     components: {
         ButtonVue,
@@ -16,7 +17,7 @@ export default {
 <template>
     <header>
         <h1>{{title}}</h1>
-        <ButtonVue @toggle-add-task="$emit('toggle-add-task')" text="Add Task" color="Green" />
+        <ButtonVue @btn-click="$emit('toggle-add-task')" :text="showAddTask? 'Close' : 'Add Task'" :color="showAddTask? 'Red': 'Green'" />
     </header>
 </template>
 

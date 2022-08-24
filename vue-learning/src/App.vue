@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <HeaderVue @toggle-add-task="toggleAddTask" title="Task Tracker"/>
-    <AddTask v-if="showAddTask" @add-task="addTask"/>
+    <HeaderVue @toggle-add-task="toggleAddTask" :showAddTask="showAddTask" title="Task Tracker"/>
+    <AddTask v-if="showAddTask" @add-task="addTask" />
     <Tasks  @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks"/>
   </div>
 </template>
@@ -40,29 +40,20 @@
       },
       toggleAddTask() {
         this.showAddTask = !this.showAddTask;
-      }
+      },
+      async fetchTasks(){
+        const response = await fetch('api/tasks');
+        const data = await response.json()
+        return data
+      },
+      async fetchTask(id){
+        const response = await fetch(`api/tasks/${id}`);
+        const data = await response.json()
+        return data
+      },
     },
-    created(){
-      this.tasks = [
-        {
-          id: 1,
-          text: 'doctors appointment',
-          day: 'march 1st 2:30pm',
-          reminder: true,
-        },
-        {
-          id: 2,
-          text: 'doctors appointment2',
-          day: 'march 2st 2:30pm',
-          reminder: true,
-        },
-        {
-          id: 3,
-          text: 'doctors appointment3',
-          day: 'march 3st 2:30pm',
-          reminder: false,
-        },
-      ]
+    async created(){
+      this.tasks = await this.fetchTasks();
     },
     emits: ['add-task']
 
